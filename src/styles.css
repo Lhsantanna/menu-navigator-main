@@ -2,6 +2,7 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* Tokens visuais do site: ajuste aqui fontes, cores e arredondamento global. */
 @theme inline {
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-display: "DM Serif Display", Georgia, serif;
@@ -55,6 +56,8 @@
   box-sizing: border-box;
   border-color: var(--border);
 }
+
+/* Estilos básicos compartilhados por todas as páginas. */
 html {
   scroll-behavior: smooth;
 }
@@ -78,6 +81,8 @@ button {
   width: min(1160px, calc(100% - 32px));
   margin-inline: auto;
 }
+
+/* Aviso superior, identidade da loja e navegação principal. */
 .children-month-theme {
   --children-blue: oklch(0.84 0.08 220);
   --children-green: oklch(0.82 0.09 155);
@@ -310,6 +315,8 @@ button {
 .children-month-theme .floating-whatsapp {
   border-color: color-mix(in oklab, var(--children-yellow) 40%, var(--background));
 }
+
+/* Imagem de destaque e conteúdo principal da página inicial. */
 .home-hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -401,6 +408,8 @@ button {
 .hero-kicker {
   color: var(--accent);
 }
+
+/* Carrossel de promoções da página inicial. */
 .promotion-carousel {
   max-width: 900px;
   margin-inline: auto;
@@ -716,6 +725,8 @@ button {
   filter: blur(0);
   transform: translateY(0) scale(1);
 }
+
+/* Faixa de confiança logo abaixo do destaque da página inicial. */
 .trust-strip {
   position: relative;
   z-index: 2;
@@ -813,6 +824,8 @@ button {
   line-height: 1.08;
   letter-spacing: 0;
 }
+
+/* Cartões de categorias e suas variações responsivas. */
 .category-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -945,6 +958,8 @@ button {
   align-items: center;
   gap: 30px;
 }
+
+/* Cartão com o endereço e o mapa incorporado. */
 .location-map-panel {
   overflow: hidden;
   min-width: 0;
@@ -1224,6 +1239,8 @@ button {
   color: var(--muted-foreground);
   line-height: 1.7;
 }
+
+/* Rodapé compartilhado por todas as páginas. */
 .footer {
   background: var(--footer);
   color: var(--primary-foreground);

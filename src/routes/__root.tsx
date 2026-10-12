@@ -98,6 +98,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+// Este componente gera as tags HTML compartilhadas por todas as páginas.
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">

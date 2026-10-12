@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 
+// Dados da drogaria usados em várias páginas; altere aqui o WhatsApp e o endereço.
 const WHATSAPP_NUMBER = "5511974132953";
 export function getWhatsAppUrl(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -51,6 +52,7 @@ const encodedPharmacyAddress = encodeURIComponent(PHARMACY_ADDRESS);
 export const PHARMACY_MAP_EMBED_URL = `https://maps.google.com/maps?q=${encodedPharmacyAddress}&z=17&output=embed`;
 export const PHARMACY_MAP_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodedPharmacyAddress}`;
 
+// Caminhos das fotos em public/images/store/; os arquivos são servidos a partir de /images.
 export const assets = {
   logo: "/images/store/logo.jpg",
   facade: "/images/store/facade.jpg",
@@ -59,6 +61,7 @@ export const assets = {
   medicine: "/images/store/medicine-counter.jpg",
 };
 
+// Opções do menu principal, na mesma ordem em que aparecem no cabeçalho.
 const menuItems = [
   { label: "Início", to: "/" as const, icon: House },
   { label: "Medicamentos", to: "/medicamentos" as const, icon: Pill },
@@ -69,6 +72,7 @@ const menuItems = [
   { label: "Entrega e contato", to: "/entrega-e-contato" as const, icon: Truck },
 ];
 
+// Cartões de categorias que podem ser reutilizados nas páginas.
 export const categories = [
   {
     title: "Medicamentos",

@@ -14,12 +14,14 @@ const title = "Farmácia em Pedra Bela - SP | Entrega Rápida | Drogaria Nossa S
 const description =
   "Farmácia em Pedra Bela com entrega, horários amplos e atendimento pelo WhatsApp. Medicamentos, higiene, linha bebê, vitaminas e serviços farmacêuticos.";
 
+// Mensagem preenchida automaticamente quando o cliente consulta um produto pelo WhatsApp.
 function getProductWhatsAppUrl(productName: string) {
   return getWhatsAppUrl(
     `Olá! Encontrei ${productName} no site da Drogaria Nossa Senhora da Pedra, em Pedra Bela. Gostaria de consultar a disponibilidade e o preço.`,
   );
 }
 
+// Edite estes itens para alterar os cartões e as imagens do carrossel inicial.
 const promotions: {
   category: string;
   description: string;
@@ -52,6 +54,7 @@ const celebrationConfetti = Array.from({ length: 14 }, (_, index) => ({
   duration: `${3 + (index % 4)}s`,
   left: `${(index * 13 + 7) % 100}%`,
 }));
+// Tempo de exibição de cada promoção no carrossel.
 const PROMOTION_DURATION_MS = 3000;
 
 export const Route = createFileRoute("/")({

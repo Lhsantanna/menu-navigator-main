@@ -1,144 +1,137 @@
 # Drogaria Nossa Senhora da Pedra
 
-Site da drogaria com páginas próprias para cada categoria, carrossel infantil,
-consulta pelo WhatsApp, endereço, horários e informações dos serviços.
+Site da drogaria, desenvolvido com React, TypeScript, TanStack Start e Vite.
+As páginas usam renderização no servidor (SSR) e são servidas por uma aplicação
+Node.js.
 
-## Funcionalidades atuais
+## Onde alterar o site
 
-- Página inicial com fachada, apresentação da drogaria e carrossel de destaques
-  infantis com avanço automático, controles e animações.
-- Menu responsivo com navegação para páginas próprias de cada categoria.
-- Catálogo visual para medicamentos, linha bebê, higiene e beleza, e vitaminas
-  e bem-estar. As imagens de produtos são ilustrativas; disponibilidade, marca
-  e preço devem ser confirmados pelo WhatsApp.
-- Páginas de serviços farmacêuticos e de entrega/contato.
-- Atendimento por WhatsApp, endereço, mapa, horários e Instagram no rodapé.
-- Metadados de página e dados estruturados locais para apoiar a indexação.
-- Animações de entrada ao rolar a página, com respeito à preferência de
-  movimento reduzido do dispositivo.
+Não existe um arquivo `index.html` tradicional para editar. O HTML é criado
+pelos componentes React (`.tsx`) e enviado pelo servidor. Para localizar uma
+alteração:
 
-| Página                 | Caminho                   |
-| ---------------------- | ------------------------- |
-| Início                 | `/`                       |
-| Medicamentos           | `/medicamentos`           |
-| Higiene e beleza       | `/higiene-e-beleza`       |
-| Linha bebê             | `/linha-bebe`             |
-| Vitaminas e bem-estar  | `/vitaminas-e-bem-estar`  |
+| O que você quer mudar | Arquivo ou pasta |
+| --- | --- |
+| Estrutura HTML comum a todas as páginas, idioma e metadados globais | `src/routes/__root.tsx` |
+| Conteúdo, imagens e carrossel da página inicial | `src/routes/index.tsx` |
+| Conteúdo de uma categoria ou serviço | O arquivo correspondente em `src/routes/` |
+| Cores, fontes, espaçamentos, aparência e responsividade | `src/styles.css` |
+| Cabeçalho, menu, rodapé, botão do WhatsApp e mapa | `src/components/pharmacy-site.tsx` |
+| Fotos e imagens que aparecem no site | `public/images/` |
+| Ícone do navegador e instruções para mecanismos de busca | `public/favicon.png` e `public/robots.txt` |
+| Endereço, telefone, categorias e imagens compartilhadas | `src/components/pharmacy-site.tsx` |
+| Configuração de desenvolvimento e publicação | `package.json` e `vite.config.ts` |
+
+### Estrutura principal
+
+```text
+menu-navigator-main/             Raiz do repositório e da aplicação
+├── public/                      Arquivos estáticos publicados sem processamento
+│   ├── favicon.png              Ícone do navegador
+│   ├── robots.txt               Regras para robôs de busca
+│   └── images/                  Fotos da loja, produtos e promoções
+├── src/
+│   ├── components/
+│   │   ├── pharmacy-site.tsx    Cabeçalho, navegação, rodapé e dados compartilhados
+│   │   └── ui/                  Componentes visuais reutilizáveis
+│   ├── lib/                     Tratamento de erros e funções auxiliares
+│   ├── routes/
+│   │   ├── __root.tsx           Estrutura HTML global, metadados e layout
+│   │   ├── index.tsx            Página inicial
+│   │   ├── medicamentos.tsx     Página de medicamentos
+│   │   ├── higiene-e-beleza.tsx Página de higiene e beleza
+│   │   ├── linha-bebe.tsx       Página da linha bebê
+│   │   ├── vitaminas-e-bem-estar.tsx
+│   │   ├── servicos-farmaceuticos.tsx
+│   │   └── entrega-e-contato.tsx
+│   ├── test/                    Testes automatizados
+│   ├── router.tsx               Configuração da navegação
+│   ├── routeTree.gen.ts         Rotas geradas automaticamente; não editar
+│   ├── server.ts                Tratamento HTTP e cabeçalhos de segurança
+│   ├── start.ts                 Configuração do servidor TanStack Start
+│   └── styles.css               Estilos globais e de todas as páginas
+├── package.json                 Comandos, dependências e versão do Node.js
+├── package-lock.json            Versões fixas usadas pelo npm ci
+├── vite.config.ts               Configuração do desenvolvimento e build Node.js
+├── tsconfig.json                Configuração do TypeScript e dos imports
+├── vitest.config.ts             Configuração dos testes
+└── eslint.config.js             Regras de qualidade do código
+```
+
+### Endereços das páginas
+
+| Página | Endereço |
+| --- | --- |
+| Início | `/` |
+| Medicamentos | `/medicamentos` |
+| Higiene e beleza | `/higiene-e-beleza` |
+| Linha bebê | `/linha-bebe` |
+| Vitaminas e bem-estar | `/vitaminas-e-bem-estar` |
 | Serviços farmacêuticos | `/servicos-farmaceuticos` |
-| Entrega e contato      | `/entrega-e-contato`      |
+| Entrega e contato | `/entrega-e-contato` |
 
-## Requisitos
+Cada arquivo em `src/routes/` define uma página. O endereço segue o nome do
+arquivo: por exemplo, `src/routes/linha-bebe.tsx` corresponde a `/linha-bebe`.
+O arquivo `src/routes/__root.tsx` é a estrutura HTML compartilhada pelas
+páginas. O TanStack Router atualiza `src/routeTree.gen.ts` automaticamente;
+não edite esse arquivo manualmente.
 
-- Node.js 20.19+ ou 22.12+
-- npm
+## Visualizar durante o desenvolvimento
 
-## Desenvolvimento local
+Requisitos: Node.js 20.19+ ou 22.12+ e npm.
+
+Na pasta raiz do projeto, execute:
 
 ```sh
 npm ci
 npm run dev
 ```
 
-## Build e execução
+Abra no navegador o endereço local exibido pelo Vite. Mantenha o comando
+`npm run dev` em execução: ao salvar alterações em `src/` ou `public/`, a página
+é atualizada automaticamente.
 
-```sh
-npm run build
-npm start
-```
-
-O build cria o servidor Node.js em `.output/server/index.mjs` e os arquivos
-públicos de produção em `.output/public`.
-
-## Publicação na Hostinger
-
-Crie no hPanel uma aplicação Node.js e configure:
-
-- **Node.js:** 20.19+ ou 22.12+
-- **Instalação:** `npm ci`
-- **Build:** `npm run build`
-- **Inicialização:** `npm start`
-
-Envie o conteúdo da pasta raiz do projeto — a que contém `package.json` — para a
-aplicação. Mantenha `package.json`, `package-lock.json`, `public/`, `src/` e os
-arquivos de configuração mencionados abaixo. Não envie `node_modules/`,
-`.output/` ou `.wrangler/`; são dependências ou artefatos temporários. O build é
-gerado na hospedagem. Configure SSL/HTTPS no hPanel antes de divulgar o site.
-
-## O que são as pastas e os arquivos
-
-### Código e conteúdo usados pelo site
-
-```text
-public/
-  favicon.png             Ícone do site
-  robots.txt               Regras básicas para robôs de busca
-  images/
-    dia-das-criancas/      Imagens usadas no carrossel infantil
-    products/              Imagens organizadas por categoria de produto
-    store/                 Logo e fotografias da drogaria
-src/
-  components/              Layout, navegação, WhatsApp e componentes compartilhados
-  routes/                  Páginas; cada rota é uma página indexável do site
-  lib/                     Utilitários e tratamento de erros
-  router.tsx               Configuração do TanStack Router
-  routeTree.gen.ts         Árvore de rotas gerada automaticamente
-  server.ts                Entrada HTTP e cabeçalhos de segurança
-  start.ts                 Middlewares do TanStack Start
-  styles.css               Estilos responsivos, animações e apresentação
-```
-
-Mantenha todo `src/` e `public/`: as rotas, imagens e integrações entre
-componentes fazem parte do site. Não edite `src/routeTree.gen.ts` manualmente; o
-TanStack Router o atualiza a partir dos arquivos em `src/routes/`.
-
-### Configuração necessária para instalar, testar e publicar
-
-```text
-package.json             Dependências, comandos e versão mínima de Node
-package-lock.json        Versões fixadas para a instalação com npm ci
-vite.config.ts           Build do servidor Node.js da Hostinger
-tsconfig.json            Configuração do TypeScript e alias de imports
-vitest.config.ts         Configuração dos testes automatizados
-eslint.config.js         Configuração do ESLint
-.gitignore               Evita enviar artefatos e arquivos locais ao Git
-```
-
-### Arquivos de desenvolvimento e integração
-
-- `src/components/ui/`: componentes compartilhados do site. São código-fonte e
-  fazem parte de `src/`.
-- `components.json`: configuração para gerar ou editar componentes compatíveis
-  com shadcn/ui. Não é carregada pelo site publicado.
-- `@lovable.dev/vite-tanstack-config`: dependência de desenvolvimento usada
-  apenas para configurar o Vite e gerar o servidor de produção. Ela não conecta
-  o site a uma conta Lovable nem é necessária durante a execução do servidor.
-- `src/test/`: testes; necessário para desenvolver e validar o projeto, não para
-  a execução normal do servidor.
-
-`node_modules/` contém dependências instaladas localmente, `.output/` é criado
-por `npm run build` e `.wrangler/` pode ser criado por ferramentas de deploy.
-Esses diretórios não são código-fonte nem precisam ser copiados para a
-Hostinger.
-
-## Segurança e operação
-
-O servidor adiciona os cabeçalhos `X-Content-Type-Options`, `X-Frame-Options`,
-`Referrer-Policy` e `Permissions-Policy`. Na data da última revisão, `npm audit
---omit=dev` não reportou vulnerabilidades nas dependências de produção. Esse
-resultado não substitui atualizações regulares nem uma auditoria completa.
-
-Ative SSL/HTTPS e redirecionamento para HTTPS no painel da hospedagem antes de
-publicar. HSTS e Content Security Policy (CSP) ainda não estão configurados.
-O site direciona solicitações ao WhatsApp e não implementa contas de usuário,
-pagamento ou armazenamento próprio de dados.
-
-## Validação
+## Preparar e testar a versão de produção
 
 ```sh
 npm test
 npm run lint
 npm run build
+npm start
 ```
 
-O ESLint pode mostrar avisos de Fast Refresh em exports compartilhados de
-`pharmacy-site.tsx`; não são erros de compilação.
+O comando de build gera o servidor Node.js em `.output/server/index.mjs` e os
+arquivos públicos em `.output/public`. `npm start` inicia esse servidor. As
+pastas `node_modules/` e `.output/` são geradas localmente e não devem ser
+enviadas como código-fonte: a instalação e a compilação são feitas no deploy.
+
+## Publicar na Hostinger
+
+O projeto está configurado para hospedagem Hostinger com aplicação Node.js.
+No hPanel, crie ou configure uma aplicação apontando para a **raiz do
+repositório**, que contém `package.json`, `package-lock.json`, `src/` e `public/`.
+Não selecione uma subpasta do projeto como diretório raiz.
+
+Configure:
+
+- **Versão do Node.js:** 20.19+ ou 22.12+.
+- **Instalação das dependências:** `npm ci`.
+- **Comando de build:** `npm run build`.
+- **Comando de inicialização:** `npm start`.
+
+Publique o conteúdo versionado na raiz do GitHub e inicie um novo deploy. Não
+envie `node_modules/` nem `.output/`: a Hostinger instala as dependências e
+gera o build. Depois da publicação, configure o domínio e o certificado
+SSL/HTTPS no hPanel.
+
+Se a aplicação atual da Hostinger foi criada com outra pasta raiz ou outro tipo
+de hospedagem, confira/ajuste essa configuração no hPanel para usar a raiz
+acima e uma aplicação Node.js. Alterações nos arquivos do projeto, sozinhas, não
+publicam o site nem alteram a configuração do painel.
+
+## Segurança e operação
+
+O servidor adiciona os cabeçalhos `X-Content-Type-Options`, `X-Frame-Options`,
+`Referrer-Policy` e `Permissions-Policy`. Ative SSL/HTTPS no domínio pela
+Hostinger. Os botões de contato encaminham o cliente ao WhatsApp; o site não
+processa pagamentos nem armazena dados de conta.
