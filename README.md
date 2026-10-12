@@ -105,17 +105,13 @@ eslint.config.js         Configuração do ESLint
 
 ### Arquivos de desenvolvimento e integração
 
-- `src/components/ui/`: biblioteca de componentes gerada pelo template Lovable.
-  Nem todos os componentes são usados nas páginas atuais, mas são código-fonte
-  que pode ser aproveitado em futuras alterações. Não precisam ser enviados
-  separadamente: fazem parte de `src/`.
+- `src/components/ui/`: componentes compartilhados do site. São código-fonte e
+  fazem parte de `src/`.
 - `components.json`: configuração para gerar ou editar componentes compatíveis
   com shadcn/ui. Não é carregada pelo site publicado.
-- `.lovable/`, `AGENTS.md` e `bunfig.toml`: metadados, instruções ou configuração
-  para o fluxo de desenvolvimento/Lovable. Não são necessários para servir o
-  site na Hostinger; mantenha-os no projeto local para preservar essa integração.
-- `bun.lock`: lockfile alternativo do Bun. O deploy documentado usa npm e
-  `package-lock.json`; não instale o mesmo projeto misturando npm e Bun.
+- `@lovable.dev/vite-tanstack-config`: dependência de desenvolvimento usada
+  apenas para configurar o Vite e gerar o servidor de produção. Ela não conecta
+  o site a uma conta Lovable nem é necessária durante a execução do servidor.
 - `src/test/`: testes; necessário para desenvolver e validar o projeto, não para
   a execução normal do servidor.
 
