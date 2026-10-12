@@ -1,0 +1,51 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { CategoryPage } from "@/components/category-page";
+const title = "Vitaminas e Bem-estar em Pedra Bela | Drogaria Nossa Senhora da Pedra";
+const description =
+  "Vitaminas B12, D e C, suplementos, repelentes, protetores solares e cremes em Pedra Bela. Consulte pelo WhatsApp.";
+export const Route = createFileRoute("/vitaminas-e-bem-estar")({
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Page,
+});
+function Page() {
+  return (
+    <CategoryPage
+      eyebrow="Rotina de cuidado"
+      title="Vitaminas e bem-estar"
+      description="Itens para complementar seus hábitos de cuidado e proteção em todas as estações."
+      productImages={[
+        {
+          image: "/images/products/repellent.jpg",
+          imageAlt: "Imagem ilustrativa de produtos repelentes",
+          title: "Repelentes",
+        },
+        {
+          image: "/images/products/vitamin-c-b12.jpg",
+          imageAlt: "Imagem ilustrativa de suplemento de vitaminas C e B12",
+          title: "Vitaminas C e B12",
+        },
+        {
+          image: "/images/products/vitamin-d3.jpg",
+          imageAlt: "Imagem ilustrativa de suplemento de vitamina D3",
+          title: "Vitamina D3",
+        },
+        {
+          image: "/images/products/whey-creatine.jpg",
+          imageAlt: "Imagem ilustrativa de whey protein e creatina",
+          title: "Suplementos esportivos",
+        },
+      ]}
+      note="Conte o que procura para verificarmos as opções disponíveis. Suplementos não substituem orientação profissional."
+      whatsappMessage="Olá! Vim pela página de vitaminas e bem-estar. Gostaria de consultar a disponibilidade de um produto. Estou procurando:"
+    />
+  );
+}
