@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Activity, HeartPulse, Syringe } from "lucide-react";
 import { InfoCard, PageIntro, SiteShell } from "@/components/pharmacy-site";
-const title = "Serviços Farmacêuticos em Pedra Bela | Pressão, Glicemia e Injeção";
+const title = "Serviços Farmacêuticos em Pedra Bela | Pressão, Glicemia e Injetáveis";
 const description =
-  "Aferição de pressão, teste de glicemia e aplicação de injeções na Drogaria Nossa Senhora da Pedra, em Pedra Bela.";
+  "Aferição de pressão arterial, teste de glicemia capilar e aplicação de injetáveis na Drogaria Nossa Senhora da Pedra, em Pedra Bela.";
 export const Route = createFileRoute("/servicos-farmaceuticos")({
   head: () => ({
     meta: [
@@ -28,13 +28,13 @@ function Page() {
       />
       <section className="content-section">
         <div className="site-container info-grid">
-          <InfoCard icon={HeartPulse} title="Aferição de pressão">
+          <InfoCard icon={HeartPulse} title="Aferição de pressão arterial">
             Acompanhe sua pressão arterial com praticidade e orientação no atendimento.
           </InfoCard>
-          <InfoCard icon={Syringe} title="Aplicação de injeções">
+          <InfoCard icon={Syringe} title="Aplicação de injetáveis">
             Consulte os documentos, a prescrição e a disponibilidade do serviço.
           </InfoCard>
-          <InfoCard icon={Activity} title="Teste de glicemia">
+          <InfoCard icon={Activity} title="Teste de glicemia capilar">
             Verificação de glicemia para acompanhamento, conforme orientação adequada.
           </InfoCard>
         </div>

@@ -91,6 +91,13 @@ Abra no navegador o endereço local exibido pelo Vite. Mantenha o comando
 `npm run dev` em execução: ao salvar alterações em `src/` ou `public/`, a página
 é atualizada automaticamente.
 
+O **Live Server** do VS Code serve arquivos estáticos e não inicia o servidor
+Node.js necessário por este projeto; por isso, não há um `index.html` para abrir
+com essa extensão. Para iniciar o servidor pelo VS Code, use **Terminal >
+Executar Tarefa...** e escolha **Site: iniciar servidor de desenvolvimento**.
+Depois, abra no navegador o endereço `Local` exibido no terminal do Vite
+(normalmente `http://localhost:8080/`).
+
 ## Preparar e testar a versão de produção
 
 ```sh

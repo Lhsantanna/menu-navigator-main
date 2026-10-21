@@ -32,14 +32,49 @@ function Page() {
           title: "Cuidados para cabelo",
         },
         {
-          image: "/images/products/sun-protection.jpg",
-          imageAlt: "Imagem ilustrativa de produtos de proteção solar",
-          title: "Proteção solar",
+          image: "/images/products/protecao-solar/protecao-diaria.jpg",
+          imageAlt: "Sugestões de protetor solar para a rotina diária",
+          title: "Proteção solar para o dia a dia",
         },
         {
-          image: "/images/products/after-sun-care.jpg",
-          imageAlt: "Imagem ilustrativa de hidratante e creme pós-sol",
-          title: "Hidratação e cuidados pós-sol",
+          image: "/images/products/protecao-solar/protecao-fim-de-semana.jpg",
+          imageAlt: "Sugestões de protetor solar para o fim de semana",
+          title: "Proteção solar para o fim de semana",
+        },
+        {
+          image: "/images/products/protecao-solar/protecao-familia.jpg",
+          imageAlt: "Sugestões de protetor solar para toda a família",
+          title: "Proteção solar para toda a família",
+        },
+        {
+          image: "/images/products/protecao-solar/eudora-isdin-fps.jpg",
+          imageAlt: "Protetores solares Eudora e ISDIN",
+          title: "Protetores Eudora e ISDIN",
+        },
+        {
+          image: "/images/products/protecao-solar/neutrogena-sport.jpg",
+          imageAlt: "Protetores solares Neutrogena",
+          title: "Proteção solar Neutrogena",
+        },
+        {
+          image: "/images/products/protecao-solar/neostrata-minesol.jpg",
+          imageAlt: "Protetor solar facial Neostrata Minesol",
+          title: "Proteção solar facial Neostrata",
+        },
+        {
+          image: "/images/products/protecao-solar/kit-actine-neutrogena.jpg",
+          imageAlt: "Sugestão de kit com produtos Actine e Neutrogena",
+          title: "Kit Actine e Neutrogena",
+        },
+        {
+          image: "/images/products/calamad-pos-sol.jpg",
+          imageAlt: "Produtos Calamed para cuidado e hidratação pós-sol",
+          title: "Cuidado pós-sol",
+        },
+        {
+          image: "/images/products/actine-pele-acne.jpg",
+          imageAlt: "Produtos Actine para cuidados com a pele",
+          title: "Cuidados faciais",
         },
       ]}
       note="Fale com a equipe para confirmar a marca, versão ou tamanho que você procura."

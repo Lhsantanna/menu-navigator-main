@@ -22,6 +22,8 @@ function Page() {
       eyebrow="Rotina de cuidado"
       title="Vitaminas e bem-estar"
       description="Itens para complementar seus hábitos de cuidado e proteção em todas as estações."
+      image="/images/products/vitamin-c-b12.jpg"
+      imageAlt="Vitaminas C e B12, opções da seção de vitaminas e bem-estar"
       productImages={[
         {
           image: "/images/products/repellent.jpg",

@@ -56,9 +56,10 @@ export const PHARMACY_MAP_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api
 export const assets = {
   logo: "/images/store/logo.jpg",
   facade: "/images/store/facade.jpg",
+  heroFacade: "/images/store/facade-hero.jpg",
   baby: "/images/store/baby-aisle.jpg",
-  beauty: "/images/store/beauty-aisle.jpg",
-  medicine: "/images/store/medicine-counter.jpg",
+  beauty: "/images/store/higiene-pessoal.jpg",
+  medicine: "/images/store/medicamentos-prateleiras.jpg",
 };
 
 // Opções do menu principal, na mesma ordem em que aparecem no cabeçalho.
@@ -196,14 +197,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
       ".trust-strip",
       ".content-section",
       ".section-heading",
-      ".promotion-carousel",
-      ".promotion-controls",
       ".page-intro",
       ".service-band",
       ".category-card",
+      ".category-product-card",
       ".info-card",
       ".item-list li",
-      ".promotion-slide",
       ".location-map-panel",
       ".contact-panel",
       ".address-box",
@@ -275,14 +274,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <div className="children-month-theme min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground">
       <div className="notice-bar">
         Entrega rápida em Pedra Bela <span aria-hidden="true">•</span> Aberto Seg–Sáb até 20:30 e
         Dom até 13:00
-        <span className="children-month-note">
-          <Baby aria-hidden="true" />
-          Especial Dia das Crianças
-        </span>
       </div>
       <header className="site-header">
         <div className="site-container flex h-full items-center justify-between gap-4">
@@ -463,9 +458,9 @@ function Footer() {
             <strong>08:00 às 13:00</strong>
           </p>
           <p className="footer-copy footer-safety-note">
-            Medicamentos devem ser utilizados conforme a bula e a orientação de um profissional
-            habilitado. Produtos, preços e condições promocionais sujeitos à disponibilidade e
-            confirmação no atendimento.
+            Medicamentos devem ser utilizados conforme a orientação de um profissional habilitado.
+            Produtos, preços e condições promocionais sujeitos à disponibilidade e confirmação no
+            atendimento.
           </p>
         </div>
       </div>
