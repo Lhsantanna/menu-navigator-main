@@ -57,7 +57,7 @@ export const assets = {
   logo: "/images/store/logo.jpg",
   facade: "/images/store/facade.jpg",
   heroFacade: "/images/store/facade-hero.jpg",
-  baby: "/images/store/baby-aisle.jpg",
+  baby: "/images/store/linha-bebe-capa.jpg",
   beauty: "/images/store/higiene-pessoal.jpg",
   medicine: "/images/store/medicamentos-prateleiras.jpg",
 };
@@ -232,6 +232,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       target.setAttribute("data-scroll-reveal", "");
       if (target instanceof HTMLElement) {
         target.style.setProperty("--scroll-reveal-delay", `${(sequence % 4) * 75}ms`);
+        target.style.setProperty("--scroll-reveal-x", sequence % 2 === 0 ? "-96px" : "96px");
       }
       sequence += 1;
       revealObserver.observe(target);
@@ -435,7 +436,7 @@ function Footer() {
             </a>
             <br />
             <a
-              href="https://www.instagram.com/farmaciapedrabela/"
+              href="https://www.instagram.com/drogarianspedra?utm_source=ig_web_button_share_sheet&cplk=ZDNlZDc0MzIxNw=="
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Acompanhe a Drogaria Nossa Senhora da Pedra no Instagram"
@@ -508,6 +509,7 @@ export function PageIntro({
   description,
   image,
   imageAlt,
+  categoryImage = false,
   whatsappMessage,
 }: {
   eyebrow: string;
@@ -515,12 +517,19 @@ export function PageIntro({
   description: string;
   image?: string;
   imageAlt?: string;
+  categoryImage?: boolean;
   whatsappMessage?: string;
 }) {
   return (
     <section className="page-intro">
       <div className="site-container page-intro-grid">
-        <div className="py-12 md:py-16">
+        <div
+          className={
+            categoryImage
+              ? "page-intro-copy page-intro-category-copy py-12 md:py-16"
+              : "py-12 md:py-16"
+          }
+        >
           <p className="eyebrow">{eyebrow}</p>
           <h1 className="page-title">{title}</h1>
           <p className="page-lead">{description}</p>
@@ -529,11 +538,25 @@ export function PageIntro({
           </div>
         </div>
         {image && (
-          <img
-            src={image}
-            alt={imageAlt ?? "Interior da Drogaria Nossa Senhora da Pedra"}
-            className="page-intro-image"
-          />
+          <div
+            className={
+              categoryImage
+                ? "page-intro-visual page-intro-category-visual"
+                : "page-intro-visual"
+            }
+          >
+            <div
+              className="page-intro-backdrop"
+              aria-hidden="true"
+              style={{ backgroundImage: `url("${image}")` }}
+            />
+            <img
+              src={image}
+              alt={imageAlt ?? "Interior da Drogaria Nossa Senhora da Pedra"}
+              className="page-intro-image"
+              decoding="async"
+            />
+          </div>
         )}
       </div>
     </section>

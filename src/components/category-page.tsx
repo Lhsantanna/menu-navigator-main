@@ -33,6 +33,7 @@ export function CategoryPage({
         title={title}
         description={description}
         whatsappMessage={whatsappMessage}
+        categoryImage
         {...(image ? { image } : {})}
         {...(imageAlt ? { imageAlt } : {})}
       />
