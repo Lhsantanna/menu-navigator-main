@@ -6,7 +6,11 @@ const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "
 const publicDirectory = path.join(projectRoot, "public");
 const sitemapPath = path.join(publicDirectory, "sitemap.xml");
 const robotsPath = path.join(publicDirectory, "robots.txt");
-const configuredUrl = process.env.VITE_SITE_URL?.trim();
+const productionEnv = await readFile(path.join(projectRoot, ".env.production"), "utf8").catch(() => "");
+const productionSiteUrl = productionEnv.match(/^VITE_SITE_URL\s*=\s*(.*)$/m)?.[1]
+  ?.trim()
+  .replace(/^(?:"(.*)"|'(.*)')$/, (_, doubleQuoted, singleQuoted) => doubleQuoted ?? singleQuoted);
+const configuredUrl = process.env.VITE_SITE_URL?.trim() || productionSiteUrl;
 
 let robots = await readFile(robotsPath, "utf8");
 robots = robots.replace(/^Sitemap:\s*.*(?:\r?\n|$)/gim, "").trimEnd();

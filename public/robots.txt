@@ -12,3 +12,4 @@ Allow: /
 
 User-agent: *
 Allow: /
+Sitemap: https://drogarianossasenhoradapedra.com/sitemap.xml

@@ -19,7 +19,7 @@ O ZIP inclui `package.json` e `package-lock.json`, `src/`, `public/`, `scripts/`
    - Build: `npm run build`
    - Inicialização: `npm start`
 6. Conclua o deploy e abra o endereço temporário fornecido pela Hostinger para conferir o site.
-7. Quando comprar e conectar o domínio ao app, configure `VITE_SITE_URL` com a URL pública completa, incluindo `https://` (por exemplo, `https://www.seudominio.com.br`) **antes do build/deploy**. Faça um novo deploy depois de salvar essa variável. Isso gera as URLs canonical e `sitemap.xml` com o domínio correto.
+7. O domínio informado para este site é `https://drogarianossasenhoradapedra.com`; essa URL já está salva em `.env.production` e será usada no build. Se configurar a variável `VITE_SITE_URL` no painel da Hostinger, use exatamente esse endereço (sem `www`) e faça um novo deploy para gerar as URLs canonical e o `sitemap.xml`.
 8. Ative/confirme o SSL/HTTPS do domínio no hPanel.
 
 ## O que enviar
