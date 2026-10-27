@@ -1,20 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { assets } from "@/components/pharmacy-site";
 import { CategoryPage } from "@/components/category-page";
+import { createPageSeo } from "@/lib/seo";
 const title = "Linha Bebê em Pedra Bela | Drogaria Nossa Senhora da Pedra";
 const description =
   "Fraldas, leites, cremes para assadura e cuidados Johnson’s baby em Pedra Bela. Consulte disponibilidade pelo WhatsApp.";
 export const Route = createFileRoute("/linha-bebe")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    createPageSeo({
+      path: "/linha-bebe",
+      title,
+      description,
+      image: assets.baby,
+    }),
   component: Page,
 });
 function Page() {

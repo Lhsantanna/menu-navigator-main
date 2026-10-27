@@ -1,20 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Activity, HeartPulse, Syringe } from "lucide-react";
 import { InfoCard, PageIntro, SiteShell } from "@/components/pharmacy-site";
+import { createPageSeo } from "@/lib/seo";
 const title = "Serviços Farmacêuticos em Pedra Bela | Pressão, Glicemia e Injetáveis";
 const description =
   "Aferição de pressão arterial, teste de glicemia capilar e aplicação de injetáveis na Drogaria Nossa Senhora da Pedra, em Pedra Bela.";
 export const Route = createFileRoute("/servicos-farmaceuticos")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    createPageSeo({
+      path: "/servicos-farmaceuticos",
+      title,
+      description,
+      image: "/images/store/farmaceutico.jpg",
+    }),
   component: Page,
 });
 function Page() {

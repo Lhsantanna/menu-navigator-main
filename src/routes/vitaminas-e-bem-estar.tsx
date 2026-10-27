@@ -1,19 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CategoryPage } from "@/components/category-page";
+import { createPageSeo } from "@/lib/seo";
 const title = "Vitaminas e Bem-estar em Pedra Bela | Drogaria Nossa Senhora da Pedra";
 const description =
   "Vitaminas B12, D e C, suplementos, repelentes, protetores solares e cremes em Pedra Bela. Consulte pelo WhatsApp.";
 export const Route = createFileRoute("/vitaminas-e-bem-estar")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    createPageSeo({
+      path: "/vitaminas-e-bem-estar",
+      title,
+      description,
+      image: "/images/products/vitamin-c-b12.jpg",
+    }),
   component: Page,
 });
 function Page() {

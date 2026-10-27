@@ -1,20 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { assets } from "@/components/pharmacy-site";
 import { CategoryPage } from "@/components/category-page";
+import { createPageSeo } from "@/lib/seo";
 const title = "Medicamentos em Pedra Bela - SP | Drogaria Nossa Senhora da Pedra";
 const description =
   "Consulte medicamentos e genéricos na Drogaria Nossa Senhora da Pedra, no Centro de Pedra Bela, com atendimento pelo WhatsApp.";
 export const Route = createFileRoute("/medicamentos")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    createPageSeo({
+      path: "/medicamentos",
+      title,
+      description,
+      image: assets.medicine,
+    }),
   component: Page,
 });
 function Page() {

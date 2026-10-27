@@ -10,17 +10,17 @@ Não existe um arquivo `index.html` tradicional para editar. O HTML é criado
 pelos componentes React (`.tsx`) e enviado pelo servidor. Para localizar uma
 alteração:
 
-| O que você quer mudar | Arquivo ou pasta |
-| --- | --- |
-| Estrutura HTML comum a todas as páginas, idioma e metadados globais | `src/routes/__root.tsx` |
-| Conteúdo, imagens e carrossel da página inicial | `src/routes/index.tsx` |
-| Conteúdo de uma categoria ou serviço | O arquivo correspondente em `src/routes/` |
-| Cores, fontes, espaçamentos, aparência e responsividade | `src/styles.css` |
-| Cabeçalho, menu, rodapé, botão do WhatsApp e mapa | `src/components/pharmacy-site.tsx` |
-| Fotos e imagens que aparecem no site | `public/images/` |
-| Ícone do navegador e instruções para mecanismos de busca | `public/favicon.png` e `public/robots.txt` |
-| Endereço, telefone, categorias e imagens compartilhadas | `src/components/pharmacy-site.tsx` |
-| Configuração de desenvolvimento e publicação | `package.json` e `vite.config.ts` |
+| O que você quer mudar                                               | Arquivo ou pasta                           |
+| ------------------------------------------------------------------- | ------------------------------------------ |
+| Estrutura HTML comum a todas as páginas, idioma e metadados globais | `src/routes/__root.tsx`                    |
+| Conteúdo, imagens e carrossel da página inicial                     | `src/routes/index.tsx`                     |
+| Conteúdo de uma categoria ou serviço                                | O arquivo correspondente em `src/routes/`  |
+| Cores, fontes, espaçamentos, aparência e responsividade             | `src/styles.css`                           |
+| Cabeçalho, menu, rodapé, botão do WhatsApp e mapa                   | `src/components/pharmacy-site.tsx`         |
+| Fotos e imagens que aparecem no site                                | `public/images/`                           |
+| Ícone do navegador e instruções para mecanismos de busca            | `public/favicon.png` e `public/robots.txt` |
+| Endereço, telefone, categorias e imagens compartilhadas             | `src/components/pharmacy-site.tsx`         |
+| Configuração de desenvolvimento e publicação                        | `package.json` e `vite.config.ts`          |
 
 ### Estrutura principal
 
@@ -60,15 +60,15 @@ menu-navigator-main/             Raiz do repositório e da aplicação
 
 ### Endereços das páginas
 
-| Página | Endereço |
-| --- | --- |
-| Início | `/` |
-| Medicamentos | `/medicamentos` |
-| Higiene e beleza | `/higiene-e-beleza` |
-| Linha bebê | `/linha-bebe` |
-| Vitaminas e bem-estar | `/vitaminas-e-bem-estar` |
+| Página                 | Endereço                  |
+| ---------------------- | ------------------------- |
+| Início                 | `/`                       |
+| Medicamentos           | `/medicamentos`           |
+| Higiene e beleza       | `/higiene-e-beleza`       |
+| Linha bebê             | `/linha-bebe`             |
+| Vitaminas e bem-estar  | `/vitaminas-e-bem-estar`  |
 | Serviços farmacêuticos | `/servicos-farmaceuticos` |
-| Entrega e contato | `/entrega-e-contato` |
+| Entrega e contato      | `/entrega-e-contato`      |
 
 Cada arquivo em `src/routes/` define uma página. O endereço segue o nome do
 arquivo: por exemplo, `src/routes/linha-bebe.tsx` corresponde a `/linha-bebe`.
@@ -111,6 +111,15 @@ O comando de build gera o servidor Node.js em `.output/server/index.mjs` e os
 arquivos públicos em `.output/public`. `npm start` inicia esse servidor. As
 pastas `node_modules/` e `.output/` são geradas localmente e não devem ser
 enviadas como código-fonte: a instalação e a compilação são feitas no deploy.
+
+### URL pública, canonical e sitemap
+
+Configure `VITE_SITE_URL` com o domínio público do site no ambiente de build
+da hospedagem, por exemplo `https://www.seudominio.com.br`. O build usa esse
+valor para gerar as URLs canonical, as imagens de compartilhamento, o
+`public/sitemap.xml` e a linha `Sitemap` em `public/robots.txt`. Sem o domínio,
+o sitemap e as URLs absolutas são omitidos para evitar publicar endereços
+incorretos.
 
 ## Publicar na Hostinger
 

@@ -276,6 +276,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <a className="skip-link" href="#main-content">
+        Pular para o conteúdo principal
+      </a>
       <div className="notice-bar">
         Entrega rápida em Pedra Bela <span aria-hidden="true">•</span> Aberto Seg–Sáb até 20:30 e
         Dom até 13:00
@@ -294,7 +297,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
             aria-label="Drogaria Nossa Senhora da Pedra — início"
             className="brand-link"
           >
-            <img src={assets.logo} alt="Drogaria Nossa Senhora da Pedra" className="brand-logo" />
+            <img
+              src={assets.logo}
+              alt="Drogaria Nossa Senhora da Pedra"
+              className="brand-logo"
+              width="1254"
+              height="1254"
+            />
             <span className="hidden sm:block">
               <strong>Drogaria Nossa Senhora</strong>
               <small>da Pedra • Pedra Bela — SP</small>
@@ -345,6 +354,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   }
                 }}
                 className={`menu-link ${active ? "menu-link-active" : ""}`}
+                aria-current={active ? "page" : undefined}
               >
                 <Icon className="h-5 w-5" />
                 <span>{item.label}</span>
@@ -355,6 +365,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 key={item.to}
                 to={item.to}
                 className={`menu-link ${active ? "menu-link-active" : ""}`}
+                aria-current={active ? "page" : undefined}
               >
                 <Icon className="h-5 w-5" />
                 <span>{item.label}</span>
@@ -368,7 +379,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
         </div>
       </aside>
 
-      <main>{children}</main>
+      <main id="main-content" tabIndex={-1}>
+        {children}
+      </main>
       <Footer />
       <a
         href={getWhatsAppUrl(whatsappMessage)}
@@ -392,7 +405,13 @@ function Footer() {
     <footer className="footer">
       <div className="site-container grid gap-9 py-12 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_1.2fr_1fr]">
         <div>
-          <img src={assets.logo} alt="Drogaria Nossa Senhora da Pedra" className="footer-logo" />
+          <img
+            src={assets.logo}
+            alt="Drogaria Nossa Senhora da Pedra"
+            className="footer-logo"
+            width="1254"
+            height="1254"
+          />
           <p className="mt-4 max-w-sm text-sm text-footer-muted">
             Cuidado, fé e saúde para você. Atendimento próximo e responsável em Pedra Bela.
           </p>
@@ -413,7 +432,9 @@ function Footer() {
               Início
             </Link>
             <Link to="/medicamentos">Medicamentos</Link>
+            <Link to="/higiene-e-beleza">Higiene e beleza</Link>
             <Link to="/linha-bebe">Linha bebê</Link>
+            <Link to="/vitaminas-e-bem-estar">Vitaminas e bem-estar</Link>
             <Link to="/servicos-farmaceuticos">Serviços farmacêuticos</Link>
             <Link to="/entrega-e-contato">Entrega e contato</Link>
           </nav>
@@ -540,9 +561,7 @@ export function PageIntro({
         {image && (
           <div
             className={
-              categoryImage
-                ? "page-intro-visual page-intro-category-visual"
-                : "page-intro-visual"
+              categoryImage ? "page-intro-visual page-intro-category-visual" : "page-intro-visual"
             }
           >
             <div
@@ -554,6 +573,7 @@ export function PageIntro({
               src={image}
               alt={imageAlt ?? "Interior da Drogaria Nossa Senhora da Pedra"}
               className="page-intro-image"
+              fetchPriority={categoryImage ? "high" : undefined}
               decoding="async"
             />
           </div>

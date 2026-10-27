@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, Megaphone, Truck } from "lucide-react";
+import { ChevronLeft, ChevronRight, Megaphone, Pause, Play, Truck } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   assets,
@@ -10,6 +10,7 @@ import {
   WhatsAppIcon,
   WhatsAppButton,
 } from "@/components/pharmacy-site";
+import { absoluteSiteUrl, createPageSeo } from "@/lib/seo";
 
 const title = "Farmácia em Pedra Bela - SP | Entrega Rápida | Drogaria Nossa Senhora da Pedra";
 const description =
@@ -158,21 +159,18 @@ const PROMOTION_DURATION_MS = 4500;
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+    ...createPageSeo({ path: "/", title, description, image: assets.heroFacade }),
     scripts: [
       {
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Pharmacy",
+          "@id": absoluteSiteUrl("/") ? `${absoluteSiteUrl("/")}#pharmacy` : undefined,
           name: "Drogaria Nossa Senhora da Pedra",
+          url: absoluteSiteUrl("/"),
+          image: absoluteSiteUrl(assets.heroFacade),
+          logo: absoluteSiteUrl(assets.logo),
           telephone: "+5511974132953",
           address: {
             "@type": "PostalAddress",
@@ -207,17 +205,19 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   const [activePromotion, setActivePromotion] = useState(0);
   const [carouselPaused, setCarouselPaused] = useState(false);
+  const [carouselFocusPaused, setCarouselFocusPaused] = useState(false);
   const { group: activePromotionGroup, groupStartIndex } = getActivePromotionGroup(activePromotion);
+  const isCarouselPaused = carouselPaused || carouselFocusPaused;
 
   useEffect(() => {
-    if (carouselPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (isCarouselPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const interval = window.setInterval(() => {
       setActivePromotion((current) => (current + 1) % discountHighlights.length);
     }, PROMOTION_DURATION_MS);
 
     return () => window.clearInterval(interval);
-  }, [carouselPaused]);
+  }, [isCarouselPaused]);
 
   return (
     <SiteShell>
@@ -229,6 +229,7 @@ function HomePage() {
             className="home-hero-image"
             width="768"
             height="1029"
+            loading="eager"
             fetchPriority="high"
           />
           <div className="home-hero-overlay" />
@@ -251,13 +252,13 @@ function HomePage() {
         <div className="site-container">
           <div
             className="promotion-carousel"
+            role="region"
+            aria-roledescription="carrossel"
             aria-label="Produtos em destaque com descontos"
-            onMouseEnter={() => setCarouselPaused(true)}
-            onMouseLeave={() => setCarouselPaused(false)}
-            onFocusCapture={() => setCarouselPaused(true)}
+            onFocusCapture={() => setCarouselFocusPaused(true)}
             onBlurCapture={(event) => {
               if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-                setCarouselPaused(false);
+                setCarouselFocusPaused(false);
               }
             }}
           >
@@ -369,13 +370,14 @@ function HomePage() {
                 <span
                   key={`${activePromotion}-${carouselPaused ? "paused" : "playing"}`}
                   className="promotion-progress-value"
-                  style={{ animationPlayState: carouselPaused ? "paused" : "running" }}
+                  style={{ animationPlayState: isCarouselPaused ? "paused" : "running" }}
                 />
               </div>
             </div>
             <div className="promotion-controls">
               <div
                 className="promotion-dots"
+                role="group"
                 aria-label={`Ofertas de ${activePromotionGroup.label}`}
               >
                 {activePromotionGroup.products.map((product, index) => (
@@ -392,6 +394,21 @@ function HomePage() {
               <div className="promotion-position" aria-live="polite">
                 Oferta {activePromotion + 1} de {discountHighlights.length}
               </div>
+              <button
+                type="button"
+                className="promotion-play-toggle"
+                aria-label={
+                  carouselPaused ? "Retomar ofertas automáticas" : "Pausar ofertas automáticas"
+                }
+                aria-pressed={carouselPaused}
+                onClick={() => {
+                  setCarouselPaused((paused) => !paused);
+                  setCarouselFocusPaused(false);
+                }}
+              >
+                {carouselPaused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
+                <span>{carouselPaused ? "Reproduzir" : "Pausar"}</span>
+              </button>
             </div>
           </div>
         </div>
@@ -413,6 +430,10 @@ function HomePage() {
           <img
             className="service-pharmacist"
             src="/images/store/farmaceutico.jpg"
+            width="1194"
+            height="1600"
+            loading="lazy"
+            decoding="async"
             alt="Farmacêutico na Drogaria Nossa Senhora da Pedra"
             onError={(event) => {
               event.currentTarget.style.display = "none";

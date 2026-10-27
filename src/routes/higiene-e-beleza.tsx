@@ -1,20 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { assets } from "@/components/pharmacy-site";
 import { CategoryPage } from "@/components/category-page";
+import { createPageSeo } from "@/lib/seo";
 const title = "Higiene e Beleza em Pedra Bela | Drogaria Nossa Senhora da Pedra";
 const description =
   "Produtos de higiene, beleza, cabelo e cuidados com a pele em Pedra Bela. Consulte marcas e disponibilidade pelo WhatsApp.";
 export const Route = createFileRoute("/higiene-e-beleza")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    createPageSeo({
+      path: "/higiene-e-beleza",
+      title,
+      description,
+      image: assets.beauty,
+    }),
   component: Page,
 });
 function Page() {

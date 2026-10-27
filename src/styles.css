@@ -69,8 +69,27 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+.skip-link {
+  position: fixed;
+  z-index: 1000;
+  top: -5rem;
+  left: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 700;
+  transition: top 160ms ease;
+}
+.skip-link:focus {
+  top: 1rem;
+}
 a {
   text-decoration: none;
+}
+:focus-visible {
+  outline: 3px solid var(--brand-gold);
+  outline-offset: 3px;
 }
 button,
 a {
@@ -609,6 +628,7 @@ button {
 }
 .promotion-controls {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
@@ -620,19 +640,28 @@ button {
   gap: 10px;
 }
 .promotion-dot {
-  width: 9px;
-  height: 9px;
+  display: grid;
+  width: 32px;
+  height: 32px;
   padding: 0;
   border: 0;
+  place-items: center;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+.promotion-dot::before {
+  width: 9px;
+  height: 9px;
   border-radius: 999px;
   background: var(--border);
-  cursor: pointer;
+  content: "";
   transition:
     width 0.2s ease,
     background 0.2s ease;
 }
-.promotion-dot-active {
-  width: 26px;
+.promotion-dot-active::before {
+  width: 22px;
   background: var(--primary);
 }
 .promotion-position {
@@ -640,10 +669,29 @@ button {
   font-size: 0.78rem;
   font-weight: 750;
 }
+.promotion-play-toggle {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--foreground);
+  font-size: 0.78rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+.promotion-play-toggle svg {
+  width: 16px;
+  height: 16px;
+}
 .promotion-arrow {
   display: grid;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   place-items: center;
   border: 1px solid var(--border);
   border-radius: 50%;
@@ -717,7 +765,9 @@ button {
 .scroll-reveal-ready
   .discount-highlight-section[data-scroll-reveal].scroll-reveal-visible
   .promotion-carousel,
-.scroll-reveal-ready .discount-highlight-section[data-scroll-reveal]:focus-within .promotion-carousel {
+.scroll-reveal-ready
+  .discount-highlight-section[data-scroll-reveal]:focus-within
+  .promotion-carousel {
   opacity: 1;
   filter: blur(0);
   transform: translate3d(0, 0, 0);
@@ -1080,7 +1130,9 @@ button {
   height: 100%;
   object-fit: contain;
   filter: drop-shadow(0 12px 18px rgb(0 0 0 / 18%));
-  transition: transform 240ms ease, filter 240ms ease;
+  transition:
+    transform 240ms ease,
+    filter 240ms ease;
 }
 .page-intro-category-visual:hover .page-intro-image {
   transform: scale(1.015);

@@ -1,20 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Clock3, MapPin, Truck } from "lucide-react";
 import { InfoCard, PageIntro, SiteShell } from "@/components/pharmacy-site";
+import { createPageSeo } from "@/lib/seo";
 const title = "Entrega e Contato | Farmácia em Pedra Bela - SP";
 const description =
   "Consulte entrega de medicamentos em Pedra Bela e região pelo WhatsApp. Veja o endereço e os horários da drogaria.";
 export const Route = createFileRoute("/entrega-e-contato")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    createPageSeo({
+      path: "/entrega-e-contato",
+      title,
+      description,
+      image: "/images/store/facade.jpg",
+    }),
   component: Page,
 });
 function Page() {
