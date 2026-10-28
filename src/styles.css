@@ -1407,8 +1407,9 @@ button {
     width: min(100%, 270px);
     height: clamp(300px, 78vw, 370px);
     justify-self: center;
-    object-fit: cover;
-    object-position: center top;
+    object-fit: contain;
+    object-position: center;
+    background: #ffffff;
   }
   .delivery-row,
   .content-grid {
@@ -1678,5 +1679,19 @@ button {
   .home-hero-image {
     object-fit: cover;
     object-position: center;
+  }
+}
+
+
+/* Preserve the full pharmacist photo on mobile. */
+@media (max-width: 860px) {
+  .service-pharmacist {
+    display: block;
+    width: min(100%, 320px);
+    height: auto;
+    max-height: 420px;
+    object-fit: contain;
+    object-position: center;
+    background: #ffffff;
   }
 }
