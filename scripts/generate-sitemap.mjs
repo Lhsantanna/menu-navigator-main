@@ -10,7 +10,7 @@ const productionEnv = await readFile(path.join(projectRoot, ".env.production"), 
 const productionSiteUrl = productionEnv.match(/^VITE_SITE_URL\s*=\s*(.*)$/m)?.[1]
   ?.trim()
   .replace(/^(?:"(.*)"|'(.*)')$/, (_, doubleQuoted, singleQuoted) => doubleQuoted ?? singleQuoted);
-const configuredUrl = process.env.VITE_SITE_URL?.trim() || productionSiteUrl;
+const configuredUrl = process.env.VITE_SITE_URL?.trim() || productionSiteUrl || "https://drogarianossasenhoradapedra.com";
 
 let robots = await readFile(robotsPath, "utf8");
 robots = robots.replace(/^Sitemap:\s*.*(?:\r?\n|$)/gim, "").trimEnd();
