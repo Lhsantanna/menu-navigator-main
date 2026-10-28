@@ -1668,16 +1668,17 @@ button {
 }
 
 
-/* Mobile image layout fix: show pharmacist and fill hero. */
+/* Show the entire pharmacy facade on mobile. */
 @media (max-width: 860px) {
   .home-hero-visual {
     width: 100%;
-    height: clamp(280px, 78vw, 460px);
-    min-height: 280px;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 768 / 1029;
   }
 
   .home-hero-image {
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
   }
 }
