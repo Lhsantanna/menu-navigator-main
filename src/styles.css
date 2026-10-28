@@ -1695,3 +1695,39 @@ button {
     background: #ffffff;
   }
 }
+
+
+/* Complete mobile images: never crop pharmacist or facade. */
+@media (max-width: 860px) {
+  .service-pharmacist,
+  img.service-pharmacist {
+    display: block !important;
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    background: #ffffff !important;
+  }
+
+  .home-hero-visual {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
+    background: #f3f3f3 !important;
+  }
+
+  .home-hero-image {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+}
