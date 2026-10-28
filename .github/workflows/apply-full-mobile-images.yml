@@ -1,0 +1,37 @@
+name: Apply complete mobile image display
+
+on:
+  push:
+    branches:
+      - fix/full-mobile-images
+
+permissions:
+  contents: write
+
+jobs:
+  fix-images:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preserve complete images on mobile
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('src/styles.css')
+          s = p.read_text()
+          marker = '/* Complete mobile images: never crop pharmacist or facade. */'
+          if marker not in s:
+              s += '''\n\n/* Complete mobile images: never crop pharmacist or facade. */\n@media (max-width: 860px) {\n  .service-pharmacist,\n  img.service-pharmacist {\n    display: block !important;\n    grid-column: 1 / -1 !important;\n    width: 100% !important;\n    max-width: 100% !important;\n    height: auto !important;\n    max-height: none !important;\n    aspect-ratio: auto !important;\n    object-fit: contain !important;\n    object-position: center !important;\n    background: #ffffff !important;\n  }\n\n  .home-hero-visual {\n    width: 100% !important;\n    height: auto !important;\n    min-height: 0 !important;\n    aspect-ratio: auto !important;\n    background: #f3f3f3 !important;\n  }\n\n  .home-hero-image {\n    display: block !important;\n    width: 100% !important;\n    height: auto !important;\n    max-height: none !important;\n    aspect-ratio: auto !important;\n    object-fit: contain !important;\n    object-position: center !important;\n  }\n}\n'''
+          p.write_text(s)
+          PY
+          npm install --package-lock-only --no-audit --no-fund
+          npm ci --no-audit --no-fund
+          npm audit --audit-level=high
+          npm run build
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/styles.css package-lock.json
+          git diff --cached --quiet || git commit -m 'fix: preserve complete mobile pharmacist and facade images'
+          git push
