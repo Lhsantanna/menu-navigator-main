@@ -1688,9 +1688,9 @@ button {
 @media (max-width: 860px) {
   .service-pharmacist {
     display: block;
-    width: min(100%, 320px);
+    width: min(88vw, 420px);
     height: auto;
-    max-height: 420px;
+    max-height: none;
     object-fit: contain;
     object-position: center;
     background: #ffffff;
