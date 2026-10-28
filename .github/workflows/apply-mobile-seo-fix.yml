@@ -1,0 +1,74 @@
+name: Apply mobile and SEO fix
+
+on:
+  push:
+    branches:
+      - fix/mobile-seo-github
+
+permissions:
+  contents: write
+
+jobs:
+  apply-fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Apply mobile CSS and sitemap fallback
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          css = Path('src/styles.css')
+          marker = '/* Mobile layout safeguards added by automated review. */'
+          additions = r'''
+
+          /* Mobile layout safeguards added by automated review. */
+          @media (max-width: 640px) {
+            html, body { width: 100%; min-width: 0; overflow-x: hidden; }
+            .site-container { width: min(100% - 24px, 1160px); }
+            .menu-panel { max-width: calc(100vw - 24px); max-height: calc(100vh - 84px); overflow-y: auto; }
+            .page-intro-grid, .content-grid { min-width: 0; gap: 28px; }
+            .page-intro-grid > div { width: 100%; min-width: 0; }
+            .page-intro-visual { height: min(78vw, 360px); min-height: 240px; }
+            .page-title { max-width: 100%; font-size: clamp(2rem, 10vw, 3rem); overflow-wrap: anywhere; }
+            .category-product-grid { width: 100%; max-width: none; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+            .category-product-card, .category-product-image { min-width: 0; }
+            .category-product-image { aspect-ratio: 1 / 1; height: auto; }
+            .category-product-card h3 { min-height: 3.4em; padding: 9px; font-size: .78rem; line-height: 1.3; overflow-wrap: anywhere; }
+            .floating-whatsapp { right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); width: 52px; height: 52px; min-height: 52px; padding: 0; justify-content: center; z-index: 30; }
+            .floating-whatsapp span { display: none; }
+          }
+          @media (max-width: 380px) {
+            .category-product-grid { grid-template-columns: 1fr; }
+            .category-product-card h3 { min-height: 0; }
+            .menu-button span { display: none; }
+          }
+          '''
+          current = css.read_text()
+          if marker not in current:
+              css.write_text(current + additions)
+          script = Path('scripts/generate-sitemap.mjs')
+          current = script.read_text()
+          old = 'const configuredUrl = process.env.VITE_SITE_URL?.trim() || productionSiteUrl;'
+          new = 'const configuredUrl = process.env.VITE_SITE_URL?.trim() || productionSiteUrl || "https://drogarianossasenhoradapedra.com";'
+          if old in current and new not in current:
+              script.write_text(current.replace(old, new))
+          PY
+
+      - name: Install, audit and build
+        run: |
+          npm install --package-lock-only --no-audit --no-fund
+          npm ci --no-audit --no-fund
+          npm audit --audit-level=high
+          npm run build
+
+      - name: Commit generated fixes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/styles.css scripts/generate-sitemap.mjs package-lock.json
+          git diff --cached --quiet || git commit -m 'fix: apply mobile layout and sitemap changes'
+          git push
