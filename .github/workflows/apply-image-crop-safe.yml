@@ -1,0 +1,38 @@
+name: Preserve full pharmacist image
+
+on:
+  push:
+    branches:
+      - fix/image-crop-safe
+
+permissions:
+  contents: write
+
+jobs:
+  fix-crop:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fix image cropping
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('src/styles.css')
+          s = p.read_text()
+          s = s.replace('''    object-fit: cover;\n    object-position: center top;\n  }''', '''    object-fit: contain;\n    object-position: center;\n    background: #ffffff;\n  }''', 1)
+          marker = '/* Preserve the full pharmacist photo on mobile. */'
+          if marker not in s:
+              s += '''\n\n/* Preserve the full pharmacist photo on mobile. */\n@media (max-width: 860px) {\n  .service-pharmacist {\n    display: block;\n    width: min(100%, 320px);\n    height: auto;\n    max-height: 420px;\n    object-fit: contain;\n    object-position: center;\n    background: #ffffff;\n  }\n}\n'''
+          p.write_text(s)
+          PY
+          npm install --package-lock-only --no-audit --no-fund
+          npm ci --no-audit --no-fund
+          npm audit --audit-level=high
+          npm run build
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/styles.css package-lock.json
+          git diff --cached --quiet || git commit -m 'fix: preserve full pharmacist image on mobile'
+          git push
