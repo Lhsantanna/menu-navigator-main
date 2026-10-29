@@ -933,10 +933,10 @@ button {
   line-height: 1.7;
 }
 .service-pharmacist {
-  width: 270px;
-  height: 370px;
-  object-fit: cover;
-  object-position: center top;
+  width: clamp(280px, 28vw, 360px);
+  height: auto;
+  object-fit: contain;
+  object-position: center;
   border-radius: 20px;
   box-shadow: 0 14px 36px rgb(0 0 0 / 18%);
 }
@@ -1686,13 +1686,20 @@ button {
 
 /* Preserve the full pharmacist photo on mobile. */
 @media (max-width: 860px) {
+  .service-band-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
   .service-pharmacist {
     display: block;
     width: min(88vw, 420px);
+    max-width: 100%;
     height: auto;
     max-height: none;
     object-fit: contain;
     object-position: center;
     background: #ffffff;
+    justify-self: center;
   }
 }
