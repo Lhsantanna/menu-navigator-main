@@ -1,0 +1,17 @@
+*.zip export-ignore
+"Drogaria-Nossa-Senhora-Da- Pedra/**" export-ignore
+public/images/dia-das-criancas/fraldas-premium.webp export-ignore
+public/images/dia-das-criancas/johnsons-baby.webp export-ignore
+public/images/products/antacid.jpg export-ignore
+public/images/products/antigripal.jpg export-ignore
+public/images/products/baby-hygiene.jpg export-ignore
+public/images/products/baby-nutrition.jpg export-ignore
+public/images/products/nasal-care.jpg export-ignore
+public/images/products/pain-relief.jpg export-ignore
+public/images/products/sun-protection.jpg export-ignore
+public/images/store/baby-aisle.jpg export-ignore
+public/images/store/beauty-aisle.jpg export-ignore
+public/images/store/cuidados-capilares.jpg export-ignore
+public/images/store/maquiagem-e-dermocosmeticos.jpg export-ignore
+public/images/store/medicine-counter.jpg export-ignore
+public/images/store/unhas-e-acessorios.jpg export-ignore
